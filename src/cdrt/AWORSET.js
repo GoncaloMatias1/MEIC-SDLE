@@ -228,7 +228,7 @@ class DotContext {
     }
   }
   
-module.exports = class AWORSet {
+  module.exports = class AWORSet {
     constructor(id, sharedContext = null) {
       this.dk = new DotKernel(sharedContext);
       this.id = id;
@@ -239,7 +239,11 @@ module.exports = class AWORSet {
     }
   
     toString() {
-      return `AWORSET: ${this.dk.toString()}`;
+      const values = new Set();
+      for (const [_, value] of this.dk.ds.entries()) {
+        values.add(value);
+      }
+      return `AWORSET: (${Array.from(values).join(', ')})`;
     }
   
     read() {
@@ -251,10 +255,7 @@ module.exports = class AWORSet {
     }
   
     in(val) {
-      for (const storedVal of this.dk.ds.values()) {
-        if (storedVal === val) return true;
-      }
-      return false;
+      return this.read().has(val);
     }
   
     add(val) {
@@ -279,8 +280,8 @@ module.exports = class AWORSet {
     join(o) {
       this.dk.join(o.dk);
     }
-
-    equals(o){
+  
+    equals(o) {
       return this.dk.equals(o.dk);
     }
-  }
+  };

@@ -10,21 +10,21 @@ describe('AWORSET', () => {
   });
 
   it('should initialize correctly', () => {
-    expect(set1.toString()).toBe('AWORSET: ( )');
-    expect(set2.toString()).toBe('AWORSET: ( )');
+    expect(set1.toString()).toBe('AWORSET: ()');
+    expect(set2.toString()).toBe('AWORSET: ()');
   });
 
   it('should add elements correctly', () => {
     set1.add('a');
     set1.add('b');
-    expect(set1.toString()).toBe('AWORSET: ( a b )');
+    expect(set1.toString()).toBe('AWORSET: (a, b)');
   });
 
   it('should remove elements correctly', () => {
     set1.add('a');
     set1.add('b');
     set1.remove('a');
-    expect(set1.toString()).toBe('AWORSET: ( b )');
+    expect(set1.toString()).toBe('AWORSET: (b)');
   });
 
   it('should join sets correctly', () => {
@@ -33,12 +33,12 @@ describe('AWORSET', () => {
     set2.add('b');
     set2.toString();
     set1.join(set2);
-    expect(set1.toString()).toBe('AWORSET: ( a b )');
+    expect(set1.toString()).toBe('AWORSET: (a, b)');
   });
 
   it('should check for element presence correctly', () => {
     set1.add('a');
-    expect(set1.contains('a')).toBe(true);
-    expect(set1.contains('b')).toBe(false);
+    expect(set1.in('a')).toBe(true);
+    expect(set1.in('b')).toBe(false);
   });
 });
