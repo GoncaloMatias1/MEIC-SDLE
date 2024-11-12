@@ -141,7 +141,7 @@ module.exports = class Cart {
         else{
             for(const item of items){
                 // If the item is not in the list, add it, if it is, update the quantity
-                console.log(item)
+                //console.log(item)
                 this.updateItemQuantity(id, item.name, item.quantity);
             }
         }

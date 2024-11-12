@@ -165,9 +165,9 @@ class DotContext {
       let itoEntry = ito.next();
 
       do {
-          console.log(itEntry, itoEntry)
+          //console.log(itEntry, itoEntry)
           if (!itEntry.done && (itoEntry.done || itEntry.value[0] < itoEntry.value[0])) {
-              console.log('aqui')
+              //console.log('aqui')
               // Dot only at this
               if (o.c.dotIn(itEntry.value[0])) {
                   // Other knows dot, must delete here
@@ -178,7 +178,7 @@ class DotContext {
                   itEntry = it.next();
               }
           } else if (!itoEntry.done && (itEntry.done || itoEntry.value[0] < itEntry.value[0])) {
-              console.log('aqui2')
+              //console.log('aqui2')
               // Dot only at other
               if (!this.c.dotIn(itoEntry.value[0])) {
                   // If I don't know, import
