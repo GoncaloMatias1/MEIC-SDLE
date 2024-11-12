@@ -133,7 +133,7 @@ class DotContext {
       if (!this.c.equals(o.c)) return false;
       if (this.ds.size !== o.ds.size) return false;
       for (let [key, val] of this.ds) {
-        console.log(key, val, o.ds.get(key))
+        //console.log(key, val, o.ds.get(key))
         if (o.ds.get(key) !== val) return false;
       }
       return true;
@@ -165,7 +165,9 @@ class DotContext {
       let itoEntry = ito.next();
 
       do {
+          console.log(itEntry, itoEntry)
           if (!itEntry.done && (itoEntry.done || itEntry.value[0] < itoEntry.value[0])) {
+              console.log('aqui')
               // Dot only at this
               if (o.c.dotIn(itEntry.value[0])) {
                   // Other knows dot, must delete here
@@ -176,6 +178,7 @@ class DotContext {
                   itEntry = it.next();
               }
           } else if (!itoEntry.done && (itEntry.done || itoEntry.value[0] < itEntry.value[0])) {
+              console.log('aqui2')
               // Dot only at other
               if (!this.c.dotIn(itoEntry.value[0])) {
                   // If I don't know, import
@@ -216,6 +219,20 @@ class DotContext {
       res.c.compact();
       return res;
     }
+
+    removeWithoutQuantity(val) {
+      const res = new DotKernel();
+      for (let [dot, storedVal] of this.ds) {
+        //console.log(dot, storedVal);
+        if(storedVal.split("-")[0] === val){
+          res.c.insertDot(dot, false);
+          this.ds.delete(dot);
+        }
+      }
+      res.c.compact();
+      return res;
+    }
+
   
     removeAll() {
       const res = new DotKernel();
@@ -256,6 +273,15 @@ module.exports = class AWORSet {
       }
       return false;
     }
+
+    // Checks if val is in the set, adapted to Cart Context
+    inAdapted(val) {
+      for (const [_, storedVal] of this.dk.ds.entries()) {
+        let info = storedVal.split("-");
+        if (info[0] === val) return true;
+      }
+      return false;
+    }
   
     add(val) {
       const res = new AWORSet(this.id);
@@ -267,6 +293,12 @@ module.exports = class AWORSet {
     remove(val) {
       const res = new AWORSet(this.id);
       res.dk = this.dk.remove(val);
+      return res;
+    }
+
+    removeWithoutQuantity(val) {
+      const res = new AWORSet(this.id);
+      res.dk = this.dk.removeWithoutQuantity(val);
       return res;
     }
   
