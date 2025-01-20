@@ -1,10 +1,10 @@
-# SDLE Second Assignment
+# SDLE Assignment
 
 # Distributed Shopping List Application
 
 A local-first shopping list application with cloud synchronization capabilities, built using Node.js and ZeroMQ for distributed communication.
 
-SDLE Second Assignment of group T01G13.
+SDLE Assignment of group T01G13.
 
 Group members:
 
